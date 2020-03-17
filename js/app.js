@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   QEWD.start({
-    application: 'adminui-qm'
+    application: 'qewd-monitor-adminui'
   });
 
 });

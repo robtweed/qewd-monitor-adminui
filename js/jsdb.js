@@ -39,7 +39,7 @@ export function define_jsdb_page(QEWD, webComponents) {
             children: [
               {
                 componentName: 'adminui-jsdb-viewer',
-                hooks: ['initialise']
+                hooks: ['jsdbInitialise']
               }
             ]
           }
@@ -58,7 +58,7 @@ export function define_jsdb_page(QEWD, webComponents) {
           viewer.remove();
           let newViewer = {
             componentName: 'adminui-jsdb-viewer',
-            hooks: ['initialise']
+            hooks: ['jsdbInitialise']
           };
           webComponents.loadGroup(newViewer, body, _this.context);
         };
@@ -66,7 +66,7 @@ export function define_jsdb_page(QEWD, webComponents) {
       }
     },
     'adminui-jsdb-viewer': {
-      initialise: function() {
+      jsdbInitialise: function() {
         let viewer = this;
 
         let getJSdbData = function(documentName, path, callback) {
