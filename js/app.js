@@ -28,13 +28,8 @@
 
 */
 
-// Change the paths below if needed
-
 import {webComponents} from '../../mg-webComponents.js';
 import {QEWD} from '../../qewd-client.js';
-
-// import the individual component configuration files
-//   they can be maintained independently as a result
 
 import {define_login_modal} from './login-modal.js';
 import {define_logout_modal} from './logout-modal.js';
@@ -70,14 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     webComponents.addComponent('logged_out_sidebar', define_logged_out_sidebar());
 
-    // create the context for running the web components
-
     let context = {
       paths: {
         adminui: './components/adminui/components/'
       },
       resourcePath: '/components/adminui/',
-      hooks: webComponents.hooks,
       readyEvent: new Event('ready')
     };
 
@@ -116,9 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //webComponents.setLog(true);
 
-    // register the content page configurations, ready for lazy loading on demand
-    //  this makes them accessible via the contentPage state values (see sidebar component)
-
     webComponents.register('about', webComponents.components.about);
     webComponents.register('processes', webComponents.components.processes);
     webComponents.register('jsdb', webComponents.components.jsdb);
@@ -128,19 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let body = document.getElementsByTagName('body')[0];
 
-    // The handler below is needed to ensure that all the JS resources are loaded before attempting
-    // to show the modal, since this depends on jQuery being ready
-
-    // The ready event is dispatched by the admin-root component
-    //  It is available to the admin-root component via the context object which
-    //  includes the ready event object
-
     document.addEventListener('ready', function() {
       let modal = webComponents.getComponentByName('adminui-modal-root', 'modal-login');
       modal.show();
     });
-    
-    // now load up the initial view
 
     webComponents.loadWebComponent('adminui-root', body, context, function(root) {
       let components = webComponents.components;
