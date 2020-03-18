@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  17 March 2020
+  18 March 2020
 
 */
 
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // now load up the initial view
 
-    webComponents.load('adminui-root', body, context, function(root) {
+    webComponents.loadWebComponent('adminui-root', body, context, function(root) {
       let components = webComponents.components;
       //root.setState({sidebar_colour: 'info'});
       webComponents.loadGroup(components.initial_sidebar, root.sidebarTarget, context);
