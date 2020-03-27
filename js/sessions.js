@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  17 March 2020
+  27 March 2020
 
 */
 
@@ -53,10 +53,18 @@ export function define_sessions_page(QEWD, webComponents) {
             children: [
               {
                 componentName: 'adminui-content-card-header',
-                state: {
-                  title: 'Currently Active QEWD Sessions',
-                  title_colour: 'info'
-                }
+                children: [
+                  {
+                    componentName: 'adminui-content-card-button-title',
+                    state: {
+                      title: 'Currently Active QEWD Sessions',
+                      title_colour: 'info',
+                     icon: 'redo',
+                      buttonColour: 'success'
+                    },
+                   hooks: ['refresh']
+                  }
+                ]
               },
               {
                 componentName: 'adminui-content-card-body',
@@ -64,6 +72,7 @@ export function define_sessions_page(QEWD, webComponents) {
                   {
                     componentName: 'adminui-table',
                     state: {
+                      name: 'session-table',
                       headers: ['Id', 'Application', 'Expiry', 'View', 'Stop'],
                     },
                     hooks: ['getSessions']
@@ -119,6 +128,26 @@ export function define_sessions_page(QEWD, webComponents) {
 
 
   let hooks = {
+    'adminui-content-card-button-title': {
+      refresh: function() {
+        let _this = this;
+        let fn = function() {
+          let table = _this.getComponentByName('adminui-table', 'session-table');
+          let body = table.getParentComponent('adminui-content-card-body');
+          table.remove();
+          let newTable = {
+            componentName: 'adminui-table',
+            state: {
+              name: 'session-table',
+              headers: ['Id', 'Application', 'Expiry', 'View', 'Stop'],
+            },
+            hooks: ['getSessions']
+          };
+          webComponents.loadGroup(newTable, body, _this.context);
+        };
+        this.addHandler(fn, this.button);
+      }
+    },
     'adminui-button': {
       stopSession: function() {
         let _this = this;
