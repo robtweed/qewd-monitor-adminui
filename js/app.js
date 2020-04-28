@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  18 March 2020
+  24 April 2020
 
 */
 
@@ -67,9 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let context = {
       paths: {
-        adminui: './components/adminui/components/'
+        adminui: './components/adminui/'
       },
-      resourcePath: '/components/adminui/',
       readyEvent: new Event('ready')
     };
 
