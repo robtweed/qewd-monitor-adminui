@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  24 April 2020
+  6 May 2020
 
 */
 
@@ -42,6 +42,7 @@ import {define_about_page} from './about.js';
 import {define_processes_page} from './processes.js';
 import {define_jsdb_page} from './jsdb.js';
 import {define_sessions_page} from './sessions.js';
+import {define_d3_page} from './d3.js';
 
 import {define_logged_out_sidebar} from './logged-out-sidebar.js';
 
@@ -62,12 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
     webComponents.addComponent('processes', define_processes_page(QEWD, webComponents));
     webComponents.addComponent('jsdb', define_jsdb_page(QEWD, webComponents));
     webComponents.addComponent('sessions', define_sessions_page(QEWD, webComponents));
+    webComponents.addComponent('d3_page', define_d3_page(webComponents, QEWD));
 
     webComponents.addComponent('logged_out_sidebar', define_logged_out_sidebar());
 
     let context = {
       paths: {
-        adminui: './components/adminui/'
+        adminui: './components/adminui/',
+        d3: './components/d3'
       },
       readyEvent: new Event('ready')
     };
@@ -111,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     webComponents.register('processes', webComponents.components.processes);
     webComponents.register('jsdb', webComponents.components.jsdb);
     webComponents.register('sessions', webComponents.components.sessions);
+    webComponents.register('d3', webComponents.components.d3_page);
 
     // set up the initial display prior to login
 

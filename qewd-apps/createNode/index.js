@@ -28,84 +28,39 @@
 
 */
 
-export function define_sidebar() {
+module.exports = function(messageObj, session, send, finished) {
 
-  let component = [
-    {
-      componentName: 'adminui-sidebar-divider',
-      state: {
-        isTop: true
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-nav-item',
-      state: {
-        title: 'About',
-        icon: 'info',
-        contentPage: 'about',
-        active: true
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-divider'
-    },
-    {
-      componentName: 'adminui-sidebar-nav-item',
-      state: {
-        title: 'Processes',
-        icon: 'microchip',
-        contentPage: 'processes'
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-divider'
-    },
-    {
-      componentName: 'adminui-sidebar-nav-item',
-      state: {
-        title: 'QEWD JSdb',
-        icon: 'sitemap',
-        contentPage: 'jsdb'
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-nav-item',
-      state: {
-        title: 'QEWD JSdb Inspector',
-        icon: 'sitemap',
-        contentPage: 'd3'
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-divider'
-    },
-    {
-      componentName: 'adminui-sidebar-nav-item',
-      state: {
-        title: 'QEWD Sessions',
-        icon: 'user-cog',
-        contentPage: 'sessions'
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-divider',
-    },
-    {
-      componentName: 'adminui-sidebar-nav-item',
-      state: {
-        title: 'Logout',
-        icon: 'power-off',
-        use_modal: 'modal-logout'
-      }
-    },
-    {
-      componentName: 'adminui-sidebar-divider',
-    },
-    {
-      componentName: 'adminui-sidebar-toggler',
-    }
-  ];
+  if (!session.authenticated) {
+    return finished({error: 'Unauthenticated'});
+  }
 
-  return {component};
+  if (!messageObj.params) {
+    return finished({error: 'Invalid request'});
+  }
 
+  let documentName = messageObj.params.documentName;
+  if (!documentName || documentName === '') {
+    return finished({error: 'Invalid request'});
+  }
+
+  let path = messageObj.params.path;
+  if (!path || !Array.isArray(path)) {
+    return finished({error: 'Invalid request'});
+  }
+
+  let subPath = messageObj.params.subPath;
+  if (!subPath || !Array.isArray(subPath)) {
+    return finished({error: 'Invalid request'});
+  }
+
+  path = path.concat(subPath);
+
+  let value = messageObj.params.value;
+  if (typeof value === 'undefined') {
+    return finished({error: 'Invalid request'});
+  }
+
+  this.db.use(documentName, ...path).value = value;
+
+  finished({ok: true});
 };
