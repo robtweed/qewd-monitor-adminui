@@ -24,11 +24,13 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 March 2020
+  11 May 2020
 
 */
 
 export function define_sessions_page(QEWD, webComponents) {
+
+  let sessionDocumentName;
 
   let component = {
     componentName: 'adminui-content-page',
@@ -202,6 +204,7 @@ export function define_sessions_page(QEWD, webComponents) {
           }, function(responseObj) {
             let data = [];
             responseObj.message.sessions.forEach(function(session) {
+              if (!sessionDocumentName) sessionDocumentName = session.documentName;
               let row = [
                 {value: session.id},
                 {value: session.application},
@@ -255,7 +258,7 @@ export function define_sessions_page(QEWD, webComponents) {
             viewer.setState({
               initial: {
                 topOfDocument: false,
-                documentName: 'qs',
+                documentName: sessionDocumentName,
                 data: responseObj.message.results,
                 getJSdbData: getJSdbData
               }

@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  17 March 2020
+  11 May 2020
 
 */
 
@@ -40,6 +40,7 @@ module.exports = function(messageObj, session, send, finished) {
       id: ewdSession.id,
       token: ewdSession.token,
       application: ewdSession.application,
+      documentName: ewdSession.documentName,
       expiry: ewdSession.expiryTime,
       disabled: disabled
     });
