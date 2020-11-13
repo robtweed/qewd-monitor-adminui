@@ -24,12 +24,13 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  17 March 2020
+  13 November 2020
 
 */
 
 module.exports = function(messageObj, session, send, finished) {
   if (session.authenticated) {
+    let max = 1000;
     if (!messageObj.documentName) {
       // return directory listing
       let dir = this.db.global_directory();
@@ -38,13 +39,13 @@ module.exports = function(messageObj, session, send, finished) {
       dir.forEach(function(docName) {
         let name = docName.split('^')[1];
         let doc = _this.db.use(name);
+        let noOfChildren = doc.countChildren(max);
+        if (noOfChildren > max) noOfChildren = '>' + max.toString();
         results.push({
           documentName: name,
-          noOfChildren: doc.countChildren()
+          noOfChildren: noOfChildren
         });
       });
-
-
       finished({results: results});
     }
     else {
@@ -57,7 +58,8 @@ module.exports = function(messageObj, session, send, finished) {
           value = child.value;
         }
         else {
-          noOfChildren = child.countChildren();
+          noOfChildren = child.countChildren(max);
+          if (noOfChildren > max) noOfChildren = '>' + max.toString();
         }
         results.push({
           name: ix,
