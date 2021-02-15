@@ -3,7 +3,7 @@
  ------------------------------------------------------------------------------------
  | qewd-monitor-adminui: AdminUI/WebComponent-based QEWD Monitor Tool               |
  |                                                                                  |
- | Copyright (c) 2020 M/Gateway Developments Ltd,                                   |
+ | Copyright (c) 2020-21 M/Gateway Developments Ltd,                                |
  | Redhill, Surrey UK.                                                              |
  | All rights reserved.                                                             |
  |                                                                                  |
@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  6 May 2020
+  15 February 2021
 
 */
 
@@ -37,7 +37,10 @@ module.exports = function(messageObj, session, send, finished) {
   let dir = this.db.global_directory();
   let results = [];
   dir.forEach(function(docName) {
-    let name = docName.split('^')[1];
+    let name = docName;
+    if (docName.startsWith('^')) {
+      name = docName.split('^')[1];
+    }
     results.push(name);
   });
   finished({documentNames: results});
