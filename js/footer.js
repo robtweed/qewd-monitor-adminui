@@ -3,7 +3,7 @@
  ------------------------------------------------------------------------------------
  | qewd-monitor-adminui: AdminUI/WebComponent-based QEWD Monitor Tool               |
  |                                                                                  |
- | Copyright (c) 2020 M/Gateway Developments Ltd,                                   |
+ | Copyright (c) 2020-26 MGateway Ltd,                                              |
  | Redhill, Surrey UK.                                                              |
  | All rights reserved.                                                             |
  |                                                                                  |
@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  17 March 2020
+  18 February 2026
 
 */
 
@@ -33,7 +33,7 @@ export function define_footer() {
   let component = {
     componentName: 'adminui-footer-copyright',
     state: {
-      copyright_text: 'M/Gateway Developments Ltd'
+      copyright_text: 'MGateway Ltd'
     }
   };
 
